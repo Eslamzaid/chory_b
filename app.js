@@ -12,16 +12,11 @@ const { getAllById, addHis, getIdByEmail } = require("./queires/queires");
 
 app.use(express.json());
 const corsOptions = {
-  origin: "https://chory.onrender.com",
+  origin: ["https://chory.onrender.com", "*"],
   methods: ["GET", "POST", "DELETE"],
   credentials: true,
 };
-
 app.use(cors(corsOptions));
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
 app.options("*", cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));

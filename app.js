@@ -11,13 +11,16 @@ const pool = require("./database");
 const { getAllById, addHis, getIdByEmail } = require("./queires/queires");
 
 app.use(express.json());
-app.use(
-  cors({
-    origin: "https://chory.onrender.com/",
-    methods: ["GET", "POST", "DELETE"],
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: "https://chory.onrender.com",
+  methods: ["GET", "POST", "DELETE"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
 const oneDay = 1000 * 60 * 60 * 24;
@@ -57,7 +60,7 @@ app.use("/home", secCon);
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://chory.onrender.com/",
+    origin: "https://chory.onrender.com",
     methods: ["GET", "POST"],
   },
 });

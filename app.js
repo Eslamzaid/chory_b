@@ -31,7 +31,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     name: "thisisASesssionAndWIlbeWorking",
-    cookie: { maxAge: oneDay, sameSite: "none" },
+    cookie: { maxAge: oneDay, sameSite: "none", secure: true },
   })
 );
 

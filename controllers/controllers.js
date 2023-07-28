@@ -31,7 +31,7 @@ const backUser = async (req, res) => {
         if (err) throw err;
         req.session.regenerate(async function (err) {
           if (err) throw err;
-          req.session.save(function (err) {
+          req.session.save(async function (err) {
             if (err) return next(err);
             req.session.user_id = await fin.rows[0].user_id;
             res.status(200).json({

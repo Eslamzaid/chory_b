@@ -1,6 +1,6 @@
 const express = require("express");
 const session = require("express-session");
-const MemoryStore = require("memorystore")(session);
+const pgSession = require("connect-pg-simple")(session);
 const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
@@ -31,9 +31,9 @@ app.use(
     secret: process.env.SECRET_SESSION_KEY,
     resave: false,
     saveUninitialized: true,
-    name: "thisisASesssionAndWIlbeWorking",
-    store: new MemoryStore({
-      checkPeriod: 86400000,
+    store: new pgSession({
+      pool: pool,
+      tableName: "session",
     }),
     cookie: { maxAge: oneDay, secure: true },
   })

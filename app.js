@@ -35,7 +35,7 @@ app.use(
     store: new MemoryStore({
       checkPeriod: 86400000,
     }),
-    cookie: { maxAge: oneDay, secure: true },
+    cookie: { maxAge: oneDay },
   })
 );
 

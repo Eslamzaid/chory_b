@@ -94,7 +94,7 @@ const addUser = async (req, res) => {
         pool.query(
           quires.addUserData,
           [await rows[0].user_id, username, phone, bio],
-          (err, da) => {
+          async (err, da) => {
             if (!err) {
               req.session.user_id = await rows[0].user_id;
               res.status(201).send({

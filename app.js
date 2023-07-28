@@ -22,7 +22,7 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Credentials", "true");
   next();
 });
-// app.options("*", cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
 const oneDay = 1000 * 60 * 60 * 24;
@@ -35,7 +35,7 @@ app.use(
     store: new MemoryStore({
       checkPeriod: 86400000 
     }),
-    cookie: { maxAge: oneDay, sameSite: "none", secure: true },
+    cookie: { maxAge: oneDay, secure: true },
   })
 );
 

@@ -1,6 +1,6 @@
 const express = require("express");
 const session = require("express-session");
-const pgSession = require("connect-pg-simple")(session);
+const pgSession = require("./connectPg")(session);
 const cors = require("cors");
 const morgan = require("morgan");
 const app = express();

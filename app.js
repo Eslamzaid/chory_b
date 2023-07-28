@@ -29,8 +29,9 @@ app.use(
   session({
     secret: process.env.SECRET_SESSION_KEY,
     resave: false,
-    saveUninitialized: false,
-    cookie: { maxAge: oneDay },
+    saveUninitialized: true,
+    name: "thisisASesssionAndWIlbeWorking",
+    cookie: { maxAge: oneDay, sameSite: "none" },
   })
 );
 
@@ -51,7 +52,7 @@ app.get("/", async (req, res) => {
       }
     });
   } else {
-    console.log(await req.session.user_id)
+    console.log(await req.session.user_id);
     res.json({ message: "Unauthenticated", success: false });
   }
 });
@@ -103,7 +104,6 @@ io.on("connection", (socket) => {
     });
     socket.to(await data.room).emit("receive_message", data);
   });
-
 });
 
 server.listen(4000, () => {

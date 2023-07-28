@@ -91,12 +91,12 @@ const addUser = async (req, res) => {
       pool.query(quires.AddUser, [email, password, name], async (err, fin) => {
         if (err) throw err;
         const { rows } = await pool.query(quires.userId, [email]);
-        req.session.user_id = await rows[0].user_id;
         pool.query(
           quires.addUserData,
           [await rows[0].user_id, username, phone, bio],
           (err, da) => {
             if (!err) {
+              req.session.user_id = await rows[0].user_id;
               res.status(201).send({
                 message: "User created successfully!",
                 success: true,

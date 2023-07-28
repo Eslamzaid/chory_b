@@ -180,7 +180,7 @@ module.exports = function (session) {
         const fs = require('node:fs').promises;
 
         const tableDefString = await fs.readFile(pathModule.resolve(__dirname, './table.sql'), 'utf8');
-        const tableDefModified = tableDefString.replace(/"session"/g, quotedTable);
+        const tableDefModified = tableDefString.replace(/session/g, quotedTable);
 
         await this._asyncQuery(tableDefModified, [], true);
       }

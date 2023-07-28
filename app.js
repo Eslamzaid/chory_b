@@ -51,6 +51,7 @@ app.get("/", async (req, res) => {
       }
     });
   } else {
+    console.log(await req.session.user_id)
     res.json({ message: "Unauthenticated", success: false });
   }
 });

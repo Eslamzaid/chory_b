@@ -29,10 +29,16 @@ const backUser = async (req, res) => {
       }
       pool.query(quires.userId, [email], async (err, fin) => {
         if (err) throw err;
-        req.session.user_id = await fin.rows[0].user_id;
-        res.status(200).json({
-          message: "Welcome back!",
-          success: true,
+        req.session.regenerate(async function (err) {
+          if (err) throw err;
+          req.session.user_id = await fin.rows[0].user_id;
+          req.session.save(function (err) {
+            if (err) return next(err);
+            res.status(200).json({
+              message: "Welcome back!",
+              success: true,
+            });
+          });
         });
         return;
       });
@@ -96,11 +102,17 @@ const addUser = async (req, res) => {
           [await rows[0].user_id, username, phone, bio],
           async (err, da) => {
             if (!err) {
-              req.session.user_id = await rows[0].user_id;
-              res.status(201).send({
-                message: "User created successfully!",
-                success: true,
-                user_id: rows[0].user_id,
+              req.session.regenerate(async function (err) {
+                if (err) throw err;
+                req.session.user_id = await rows[0].user_id;
+                req.session.save(function (err) {
+                  if (err) return next(err);
+                  res.status(201).send({
+                    message: "User created successfully!",
+                    success: true,
+                    user_id: rows[0].user_id,
+                  });
+                });
               });
               return;
             }

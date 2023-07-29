@@ -26,6 +26,7 @@ app.options("*", cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
 const oneDay = 1000 * 60 * 60 * 24;
+app.set("trust proxy", 1);
 app.use(
   session({
     secret: process.env.SECRET_SESSION_KEY,

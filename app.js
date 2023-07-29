@@ -35,7 +35,7 @@ app.use(
       pool: pool,
       tableName: "session",
     }),
-    cookie: { maxAge: oneDay },
+    cookie: { maxAge: oneDay, sameSite: "none", secure: true },
   })
 );
 
